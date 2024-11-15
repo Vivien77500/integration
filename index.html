@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'Intégration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: 2rem auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group input[type="file"] {
+            padding: 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #6fb98f;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .btn:hover {
+            background-color: #5aa980;
+        }
+        .logo {
+            text-align: left;
+            margin-bottom: 1rem;
+        }
+        .logo img {
+            width: 150px;
+        }
+        .step {
+            margin-top: 2rem;
+            border-top: 1px solid #ccc;
+            padding-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="logomci2.png" alt="Logo Meilleur Conseil Immo">
+        </div>
+        <h2>Formulaire d'Intégration</h2>
+
+        <!-- Étape 1 -->
+        <form action="https://formspree.io/f/xpwzreqd" method="POST" enctype="multipart/form-data">
+            <div class="step">
+                <h3>Étape 1 : Informations personnelles</h3>
+                <div class="form-group">
+                    <label for="nom">Nom <span style="color: red;">*</span></label>
+                    <input type="text" id="nom" name="Nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="prenom">Prénom <span style="color: red;">*</span></label>
+                    <input type="text" id="prenom" name="Prénom" required>
+                </div>
+                <div class="form-group">
+                    <label for="date-naissance">Date de naissance <span style="color: red;">*</span></label>
+                    <input type="date" id="date-naissance" name="Date de naissance" required>
+                </div>
+                <div class="form-group">
+                    <label for="lieu-naissance">Lieu de naissance <span style="color: red;">*</span></label>
+                    <input type="text" id="lieu-naissance" name="Lieu de naissance" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Adresse mail <span style="color: red;">*</span></label>
+                    <input type="email" id="email" name="Adresse mail" required>
+                </div>
+                <div class="form-group">
+                    <label for="telephone">Numéro de téléphone <span style="color: red;">*</span></label>
+                    <input type="tel" id="telephone" name="Numéro de téléphone" pattern="[0-9]{10}" required>
+                </div>
+                <div class="form-group">
+                    <label for="secteur">Secteur d'activité <span style="color: red;">*</span></label>
+                    <input type="text" id="secteur" name="Secteur d'activité" required>
+                </div>
+            </div>
+
+            <!-- Étape 2 -->
+            <div class="step">
+                <h3>Étape 2 : Documents administratifs</h3>
+                <div class="form-group">
+                    <label for="piece-identite">Pièce d'identité en cours de validité <span style="color: red;">*</span></label>
+                    <input type="file" id="piece-identite" name="Pièce d'identité" accept="image/*,application/pdf" required>
+                </div>
+                <div class="form-group">
+                    <label for="justificatif-domicile">Justificatif de domicile <span style="color: red;">*</span></label>
+                    <input type="file" id="justificatif-domicile" name="Justificatif de domicile" accept="image/*,application/pdf" required>
+                </div>
+                <div class="form-group">
+                    <label for="rib">RIB professionnel <span style="color: red;">*</span></label>
+                    <input type="file" id="rib" name="RIB professionnel" accept="image/*,application/pdf" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn">Envoyer</button>
+        </form>
+    </div>
+</body>
+</html>
