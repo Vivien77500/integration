@@ -5,9 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Merci</title>
     <style>
-        body { margin: 0; padding: 0; }
-        .container { display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f5f5f5; }
-        .image { max-width: 100%; height: auto; }
+        /* Styles globaux */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Conteneur principal */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        /* Image */
+        .image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Adaptabilité pour écrans moyens */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+        }
+
+        /* Adaptabilité pour petits écrans */
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
