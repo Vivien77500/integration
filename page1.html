@@ -72,14 +72,14 @@
             const queryString = new URLSearchParams(formData).toString();
 
             // URL du Google Apps Script
-            const scriptURL = "https://script.google.com/macros/s/AKfycbxzYmaL9SjLtxm-yUHknqY1RDUlDBqz4nAXzYu7CLa_e6aekqfJhbSYghdZSANajbVn/exec"; // Remplacez par votre URL réelle
+            const scriptURL = "https://script.google.com/macros/s/AKfycbxzYmaL9SjLtxm-yUHknqY1RDUlDBqz4nAXzYu7CLa_e6aekqfJhbSYghdZSANajbVn/exec";
 
             // Envoyer les données au script Google Apps Script
             fetch(scriptURL + "?" + queryString, { method: 'GET' })
                 .then(response => {
                     if (response.ok) {
                         // Rediriger vers la page suivante après succès
-                        window.location.href = "page2.html";
+                        window.location.href = "page2.html"; // Remplacez par l'URL de votre Page 2
                     } else {
                         alert("Une erreur s'est produite lors de l'envoi du formulaire.");
                     }

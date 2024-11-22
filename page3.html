@@ -110,7 +110,7 @@
             <img src="logomci2.png" alt="Logo Meilleur Conseil Immo">
         </div>
         <h2>Étape 3 : Attestation de Parrainage</h2>
-        <form action="https://script.google.com/macros/s/AKfycbxzYmaL9SjLtxm-yUHknqY1RDUlDBqz4nAXzYu7CLa_e6aekqfJhbSYghdZSANajbVn/exec" method="GET">
+        <form id="parrainageForm">
             <div class="form-group">
                 <label for="filleul">Nom et prénom du filleul</label>
                 <input type="text" id="filleul" name="filleul" required>
@@ -130,5 +130,33 @@
             <button type="submit" class="btn">Suivant</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById('parrainageForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Empêche l'envoi classique du formulaire
+
+            // Construire les données du formulaire
+            const formData = new FormData(this);
+            const queryString = new URLSearchParams(formData).toString();
+
+            // URL de Google Apps Script
+            const scriptURL = "https://script.google.com/macros/s/AKfycbxzYmaL9SjLtxm-yUHknqY1RDUlDBqz4nAXzYu7CLa_e6aekqfJhbSYghdZSANajbVn/exec";
+
+            // Envoyer les données à Google Sheets
+            fetch(scriptURL + "?" + queryString, { method: 'GET' })
+                .then(response => {
+                    if (response.ok) {
+                        // Rediriger vers la page suivante après succès
+                        window.location.href = "page4.html"; // Remplacez par l'URL de votre Page 4
+                    } else {
+                        alert("Une erreur s'est produite lors de l'envoi du formulaire.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erreur :", error);
+                    alert("Impossible d'envoyer les données. Vérifiez votre connexion.");
+                });
+        });
+    </script>
 </body>
 </html>

@@ -142,6 +142,12 @@
             event.preventDefault(); // Empêche l'envoi classique du formulaire
 
             // Construire les données du formulaire
+            const emailDebut = document.getElementById('email-debut').value.trim();
+            if (emailDebut === "") {
+                alert("Veuillez remplir le champ email.");
+                return;
+            }
+
             const formData = new FormData(this);
             const queryString = new URLSearchParams(formData).toString();
 
@@ -153,7 +159,7 @@
                 .then(response => {
                     if (response.ok) {
                         // Rediriger vers la page suivante après succès
-                        window.location.href = "page5.html";
+                        window.location.href = "page5.html"; // Redirection vers votre page suivante
                     } else {
                         alert("Une erreur s'est produite lors de l'envoi du formulaire.");
                     }
