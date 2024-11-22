@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Étape 1 : Informations de l'Agent</title>
+    <title>Étape 3 : Attestation de Parrainage</title>
     <style>
         /* Styles de base */
         body {
@@ -131,30 +131,46 @@
         <div class="logo">
             <img src="logomci2.png" alt="Logo Meilleur Conseil Immo">
         </div>
-        <h2>Étape 1 : Informations de l'Agent</h2>
-        <form action="page2.html" method="GET">
+        <h2>Étape 3 : Attestation de Parrainage</h2>
+        <form id="parrainageForm">
             <div class="form-group">
-                <label for="nom">Nom</label>
-                <input type="text" id="nom" name="nom" required>
+                <label for="filleul">Nom et prénom du filleul</label>
+                <input type="text" id="filleul" name="nom-filleul" required>
             </div>
             <div class="form-group">
-                <label for="prenom">Prénom</label>
-                <input type="text" id="prenom" name="prenom" required>
-            </div>
-            <div class="form-group">
-                <label for="date-naissance">Date de Naissance</label>
-                <input type="date" id="date-naissance" name="date-naissance" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Adresse Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="telephone">Numéro de Téléphone</label>
-                <input type="tel" id="telephone" name="telephone" required>
+                <label for="parrain">Nom et prénom du parrain</label>
+                <input type="text" id="parrain" name="nom-parrain" required>
             </div>
             <button type="submit" class="btn">Suivant</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById('parrainageForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Empêche l'envoi classique du formulaire
+
+            // Construire les données du formulaire
+            const formData = new FormData(this);
+            const queryString = new URLSearchParams(formData).toString();
+
+            // URL de Google Apps Script
+            const scriptURL = "https://script.google.com/macros/s/AKfycbyilUpZBZ8J0Svw3fnUGUP6wJxd4IbrmACMLsCEyKUcR6lseeTA7dPbIKN6xj5RYLKH/exec";
+
+            // Envoyer les données à Google Sheets
+            fetch(scriptURL + "?" + queryString, { method: 'GET' })
+                .then(response => {
+                    if (response.ok) {
+                        // Rediriger vers la page 4 après succès
+                        window.location.href = "page4.html";
+                    } else {
+                        alert("Une erreur s'est produite lors de l'envoi du formulaire.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erreur :", error);
+                    alert("Impossible d'envoyer les données. Vérifiez votre connexion.");
+                });
+        });
+    </script>
 </body>
 </html>

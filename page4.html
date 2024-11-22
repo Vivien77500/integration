@@ -127,7 +127,7 @@
             <img src="logomci2.png" alt="Logo Meilleur Conseil Immo">
         </div>
         <h2>Étape 4 : Choix de l'Adresse Email</h2>
-        <form action="page5.html" method="GET">
+        <form id="emailForm">
             <div class="form-group">
                 <label for="email-debut">Adresse email :</label>
                 <input type="text" id="email-debut" name="email-debut" maxlength="20" placeholder="Exemple : prenom.nom" required>
@@ -136,5 +136,33 @@
             <button type="submit" class="btn">Suivant</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById('emailForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Empêche l'envoi classique du formulaire
+
+            // Construire les données du formulaire
+            const formData = new FormData(this);
+            const queryString = new URLSearchParams(formData).toString();
+
+            // URL de Google Apps Script
+            const scriptURL = "https://script.google.com/macros/s/AKfycbyilUpZBZ8J0Svw3fnUGUP6wJxd4IbrmACMLsCEyKUcR6lseeTA7dPbIKN6xj5RYLKH/exec";
+
+            // Envoyer les données à Google Sheets
+            fetch(scriptURL + "?" + queryString, { method: 'GET' })
+                .then(response => {
+                    if (response.ok) {
+                        // Rediriger vers la page suivante après succès
+                        window.location.href = "page5.html";
+                    } else {
+                        alert("Une erreur s'est produite lors de l'envoi du formulaire.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erreur :", error);
+                    alert("Impossible d'envoyer les données. Vérifiez votre connexion.");
+                });
+        });
+    </script>
 </body>
 </html>
