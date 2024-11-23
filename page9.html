@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulaire d'intégration</title>
+  <title>Formulaire</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -11,52 +11,61 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      height: 100vh;
       margin: 0;
     }
+
     .form-container {
       background: #fff;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       width: 100%;
-      max-width: 600px;
+      max-width: 400px;
     }
+
     .form-container h2 {
+      margin-bottom: 20px;
       text-align: center;
-      color: #333;
     }
+
     .form-container label {
       display: block;
-      margin-top: 10px;
+      margin-bottom: 5px;
       font-weight: bold;
     }
+
     .form-container input {
       width: 100%;
       padding: 10px;
       margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 4px;
+      font-size: 16px;
     }
+
     .form-container button {
       width: 100%;
       padding: 10px;
-      background-color: #6fb98f;
+      background-color: #4CAF50;
       color: white;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       font-size: 16px;
     }
+
     .form-container button:hover {
-      background-color: #5aa980;
+      background-color: #45a049;
     }
-    .error-message {
+
+    .error {
       color: red;
       text-align: center;
       margin-top: 10px;
     }
-    .success-message {
+
+    .success {
       color: green;
       text-align: center;
       margin-top: 10px;
@@ -65,76 +74,47 @@
 </head>
 <body>
   <div class="form-container">
-    <h2>Formulaire d'intégration</h2>
-    <form id="integrationForm" enctype="multipart/form-data">
-      <label for="nom">Nom</label>
-      <input type="text" id="nom" name="nom" required>
-
-      <label for="prenom">Prénom</label>
-      <input type="text" id="prenom" name="prenom" required>
-
-      <label for="date-naissance">Date de Naissance</label>
-      <input type="date" id="date-naissance" name="date-naissance" required>
-
-      <label for="email">Adresse Email</label>
+    <h2>Formulaire</h2>
+    <form id="form">
+      <label for="name">Nom :</label>
+      <input type="text" id="name" name="nom" required>
+      
+      <label for="email">Email :</label>
       <input type="email" id="email" name="email" required>
-
-      <label for="telephone">Numéro de Téléphone</label>
-      <input type="tel" id="telephone" name="telephone" required>
-
-      <label for="email-debut">Adresse email choisie</label>
-      <input type="text" id="email-debut" name="email-debut">
-
-      <label for="filleul">Nom et prénom du filleul</label>
-      <input type="text" id="filleul" name="filleul">
-
-      <label for="parrain">Nom et prénom du parrain</label>
-      <input type="text" id="parrain" name="parrain">
-
-      <label for="file1">Pièce d'identité</label>
-      <input type="file" id="file1" name="file1">
-
-      <label for="file2">Justificatif de domicile</label>
-      <input type="file" id="file2" name="file2">
-
-      <label for="file3">RIB</label>
-      <input type="file" id="file3" name="file3">
-
-      <label for="file4">Photo de l'agent</label>
-      <input type="file" id="file4" name="file4">
-
-      <label for="file5">Facture de la demande</label>
-      <input type="file" id="file5" name="file5">
-
-      <label for="file6">Attestation d'assurance professionnelle</label>
-      <input type="file" id="file6" name="file6">
-
+      
       <button type="submit">Envoyer</button>
     </form>
-    <div id="message" class="error-message"></div>
+    <div id="message"></div>
   </div>
 
   <script>
-    document.getElementById('integrationForm').addEventListener('submit', async function(event) {
-      event.preventDefault();
-
+    document.getElementById('form').addEventListener('submit', function(event) {
+      event.preventDefault(); // Empêche le rechargement de la page
+      
       const form = event.target;
+      const actionURL = "https://script.google.com/macros/s/AKfycbxpbTCRkYPa9kp2Sqg4HcoBFnRTwbI1BKyUP1YMwDCERQWe_EzT_I_HEhRuK8Ce6SvTIA/exec";
+      
       const formData = new FormData(form);
-      const scriptURL = "https://script.google.com/macros/s/AKfycbxzYmaL9SjLtxm-yUHknqY1RDUlDBqz4nAXzYu7CLa_e6aekqfJhbSYghdZSANajbVn/exec";
-
-      try {
-        const response = await fetch(scriptURL, {
-          method: 'POST',
-          body: formData,
+      const queryString = new URLSearchParams(formData).toString();
+      
+      fetch(actionURL + "?" + queryString, { method: 'GET' })
+        .then(response => response.text())
+        .then(text => {
+          const messageDiv = document.getElementById('message');
+          if (text.includes("succès")) {
+            messageDiv.textContent = "Données envoyées avec succès !";
+            messageDiv.className = "success";
+          } else {
+            messageDiv.textContent = "Erreur lors de l'envoi des données.";
+            messageDiv.className = "error";
+          }
+        })
+        .catch(error => {
+          console.error("Erreur :", error);
+          const messageDiv = document.getElementById('message');
+          messageDiv.textContent = "Impossible d'envoyer le formulaire.";
+          messageDiv.className = "error";
         });
-
-        const result = await response.text();
-        document.getElementById('message').textContent = result;
-        document.getElementById('message').className = 'success-message';
-      } catch (error) {
-        document.getElementById('message').textContent = "Impossible d'envoyer le formulaire.";
-        document.getElementById('message').className = 'error-message';
-      }
     });
   </script>
 </body>
