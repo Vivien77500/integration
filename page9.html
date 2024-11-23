@@ -3,40 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Étape 5 : Formulaire d'intégration</title>
+    <title>Étape 5 : Formulaire d'Inscription</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
         }
-        .form-container {
+
+        .container {
             width: 60%;
-            max-width: 800px;
             margin: 2rem auto;
             background: #fff;
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .form-container h2 {
+
+        .container h2 {
             text-align: center;
-            margin-bottom: 1.5rem;
             color: #333;
+            margin-bottom: 1rem;
         }
+
         .form-group {
             margin-bottom: 1.5rem;
         }
+
         .form-group label {
             display: block;
             font-weight: bold;
             margin-bottom: 0.5rem;
         }
+
         .form-group input {
             width: 100%;
             padding: 0.5rem;
@@ -44,108 +44,132 @@
             border-radius: 4px;
             font-size: 1rem;
         }
+
         .form-group input[type="file"] {
-            border: none;
+            padding: 0.3rem;
         }
-        button {
-            display: block;
-            width: 100%;
-            padding: 0.8rem;
+
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
             background-color: #6fb98f;
             color: #fff;
-            font-size: 1.2rem;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            text-align: center;
+            font-size: 1rem;
+            margin-top: 1rem;
         }
-        button:hover {
+
+        .btn:hover {
             background-color: #5aa980;
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .success {
+            color: green;
+            margin-top: 1rem;
+        }
+
+        .error {
+            color: red;
+            margin-top: 1rem;
         }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        <h2>Formulaire d'intégration</h2>
-        <form id="integrationForm" enctype="multipart/form-data">
+    <div class="container">
+        <h2>Formulaire d'Inscription</h2>
+        <form id="form" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="nom">Nom</label>
-                <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+                <input type="text" id="nom" name="nom" required>
             </div>
             <div class="form-group">
                 <label for="prenom">Prénom</label>
-                <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+                <input type="text" id="prenom" name="prenom" required>
             </div>
             <div class="form-group">
-                <label for="date-naissance">Date de naissance</label>
+                <label for="date-naissance">Date de Naissance</label>
                 <input type="date" id="date-naissance" name="date-naissance" required>
             </div>
             <div class="form-group">
-                <label for="email">Adresse email</label>
-                <input type="email" id="email" name="email" placeholder="Votre email" required>
+                <label for="email">Adresse Email</label>
+                <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="telephone">Numéro de téléphone</label>
-                <input type="tel" id="telephone" name="telephone" placeholder="Votre numéro de téléphone" required>
+                <label for="telephone">Numéro de Téléphone</label>
+                <input type="tel" id="telephone" name="telephone" required>
             </div>
             <div class="form-group">
                 <label for="parrain">Nom et prénom du parrain</label>
-                <input type="text" id="parrain" name="parrain" placeholder="Votre parrain">
+                <input type="text" id="parrain" name="parrain" required>
             </div>
             <div class="form-group">
-                <label for="email-debut">Choix d'adresse email</label>
-                <input type="text" id="email-debut" name="email-debut" placeholder="Ex : prénom.nom">
-            </div>
-            <h3>Documents requis</h3>
-            <div class="form-group">
-                <label for="piece-identite">Pièce d'identité</label>
-                <input type="file" id="piece-identite" name="piece-identite" required>
+                <label for="email-debut">Adresse Email Choisie</label>
+                <input type="text" id="email-debut" name="email-debut" required>
             </div>
             <div class="form-group">
-                <label for="justificatif">Justificatif de domicile</label>
-                <input type="file" id="justificatif" name="justificatif">
+                <label for="file1">Pièce d'identité</label>
+                <input type="file" id="file1" name="file1" required>
             </div>
             <div class="form-group">
-                <label for="rib">RIB</label>
-                <input type="file" id="rib" name="rib" required>
+                <label for="file2">Justificatif de domicile</label>
+                <input type="file" id="file2" name="file2" required>
             </div>
             <div class="form-group">
-                <label for="photo-agent">Photo de l'agent</label>
-                <input type="file" id="photo-agent" name="photo-agent">
+                <label for="file3">RIB</label>
+                <input type="file" id="file3" name="file3" required>
             </div>
             <div class="form-group">
-                <label for="facture-cci">Facture (CCI)</label>
-                <input type="file" id="facture-cci" name="facture-cci">
+                <label for="file4">Photo de l'agent</label>
+                <input type="file" id="file4" name="file4" required>
             </div>
             <div class="form-group">
-                <label for="assurance-rcp">Attestation d'assurance (RCP)</label>
-                <input type="file" id="assurance-rcp" name="assurance-rcp">
+                <label for="file5">Facture (CCI)</label>
+                <input type="file" id="file5" name="file5" required>
             </div>
-            <button type="submit">Envoyer</button>
+            <div class="form-group">
+                <label for="file6">Attestation d'assurance professionnelle (RCP)</label>
+                <input type="file" id="file6" name="file6" required>
+            </div>
+            <button type="submit" class="btn">Envoyer</button>
         </form>
+        <p id="response-message" class=""></p>
     </div>
 
     <script>
-        document.getElementById('integrationForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Empêcher l'envoi classique du formulaire
+        const form = document.getElementById('form');
+        const responseMessage = document.getElementById('response-message');
+        const scriptURL = "https://script.google.com/macros/s/AKfycbxzYmaL9SjLtxm-yUHknqY1RDUlDBqz4nAXzYu7CLa_e6aekqfJhbSYghdZSANajbVn/exec";
 
-            const formData = new FormData(this);
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            responseMessage.textContent = "Envoi en cours...";
+            responseMessage.className = "";
 
-            // URL du script Google Apps
-            const scriptURL = "https://script.google.com/macros/s/AKfycbxzYmaL9SjLtxm-yUHknqY1RDUlDBqz4nAXzYu7CLa_e6aekqfJhbSYghdZSANajbVn/exec"; // Remplacez par votre URL réelle
+            const formData = new FormData(form);
 
-            fetch(scriptURL, {
-                method: 'POST',
-                body: formData,
-            })
-                .then(response => response.text())
-                .then(result => {
-                    alert("Formulaire envoyé avec succès !");
-                    window.location.href = "page6.html"; // Redirige vers la page de remerciements
-                })
-                .catch(error => {
-                    console.error("Erreur :", error);
-                    alert("Une erreur est survenue lors de l'envoi du formulaire.");
-                });
+            try {
+                const response = await fetch(scriptURL, { method: 'POST', body: formData });
+                if (response.ok) {
+                    responseMessage.textContent = "Formulaire envoyé avec succès.";
+                    responseMessage.className = "success";
+                    form.reset();
+                } else {
+                    responseMessage.textContent = "Une erreur est survenue.";
+                    responseMessage.className = "error";
+                }
+            } catch (error) {
+                console.error("Erreur :", error);
+                responseMessage.textContent = "Impossible d'envoyer le formulaire.";
+                responseMessage.className = "error";
+            }
         });
     </script>
 </body>
