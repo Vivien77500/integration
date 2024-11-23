@@ -1,121 +1,111 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulaire</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire vers Google Sheets</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    .form-container {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 400px;
-    }
+        .form-container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
 
-    .form-container h2 {
-      margin-bottom: 20px;
-      text-align: center;
-    }
+        .form-container h2 {
+            text-align: center;
+            color: #333;
+        }
 
-    .form-container label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
 
-    .form-container input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 16px;
-    }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-    .form-container button {
-      width: 100%;
-      padding: 10px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-    }
+        .form-container button:hover {
+            background-color: #45a049;
+        }
 
-    .form-container button:hover {
-      background-color: #45a049;
-    }
+        .success-message {
+            color: green;
+            text-align: center;
+            margin-top: 10px;
+        }
 
-    .error {
-      color: red;
-      text-align: center;
-      margin-top: 10px;
-    }
-
-    .success {
-      color: green;
-      text-align: center;
-      margin-top: 10px;
-    }
-  </style>
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-  <div class="form-container">
-    <h2>Formulaire</h2>
-    <form id="form">
-      <label for="name">Nom :</label>
-      <input type="text" id="name" name="nom" required>
-      
-      <label for="email">Email :</label>
-      <input type="email" id="email" name="email" required>
-      
-      <button type="submit">Envoyer</button>
-    </form>
-    <div id="message"></div>
-  </div>
+    <div class="form-container">
+        <h2>Formulaire</h2>
+        <form id="form">
+            <input type="text" name="nom" placeholder="Nom" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <button type="submit">Envoyer</button>
+        </form>
+        <p class="success-message" style="display: none;">Formulaire envoyé avec succès !</p>
+        <p class="error-message" style="display: none;">Impossible d'envoyer le formulaire.</p>
+    </div>
 
-  <script>
-    document.getElementById('form').addEventListener('submit', function(event) {
-      event.preventDefault(); // Empêche le rechargement de la page
-      
-      const form = event.target;
-      const actionURL = "https://script.google.com/macros/s/AKfycbwj7hBbGQAriMQ28Gg_LekDlqMBEHwumvNE-vhOpfi6kyyScQWJQY-9T9IBcLJGJPdf/exec";
-      
-      const formData = new FormData(form);
-      const queryString = new URLSearchParams(formData).toString();
-      
-      fetch(actionURL + "?" + queryString, { method: 'GET' })
-        .then(response => response.text())
-        .then(text => {
-          const messageDiv = document.getElementById('message');
-          if (text.includes("succès")) {
-            messageDiv.textContent = "Données envoyées avec succès !";
-            messageDiv.className = "success";
-          } else {
-            messageDiv.textContent = "Erreur lors de l'envoi des données.";
-            messageDiv.className = "error";
-          }
-        })
-        .catch(error => {
-          console.error("Erreur :", error);
-          const messageDiv = document.getElementById('message');
-          messageDiv.textContent = "Impossible d'envoyer le formulaire.";
-          messageDiv.className = "error";
+    <script>
+        document.getElementById('form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Empêche l'envoi classique du formulaire
+
+            // URL de votre script Apps Script
+            const scriptURL = "https://script.google.com/macros/s/AKfycbwj7hBbGQAriMQ28Gg_LekDlqMBEHwumvNE-vhOpfi6kyyScQWJQY-9T9IBcLJGJPdf/exec";
+
+            // Récupérer les données du formulaire
+            const formData = new FormData(e.target);
+
+            // Envoyer les données au script Apps Script
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    if (response.ok) {
+                        document.querySelector('.success-message').style.display = 'block';
+                        document.querySelector('.error-message').style.display = 'none';
+                        e.target.reset(); // Réinitialiser le formulaire
+                    } else {
+                        throw new Error('Erreur lors de l\'envoi');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur :', error);
+                    document.querySelector('.success-message').style.display = 'none';
+                    document.querySelector('.error-message').style.display = 'block';
+                });
         });
-    });
-  </script>
+    </script>
 </body>
 </html>
